@@ -51,7 +51,7 @@ namespace SmartHome.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(long id, User user)
         {
-            if (id != user.Id)
+            if (id != user.UserId)
             {
                 return BadRequest();
             }
@@ -87,7 +87,7 @@ namespace SmartHome.Controllers
             myDbContext.Users.Add(user);
             await myDbContext.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+            return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
         }
 
 
@@ -117,7 +117,7 @@ namespace SmartHome.Controllers
         }
         private bool UserExists(long id)
         {
-            return myDbContext.Users.Any(e => e.Id == id);
+            return myDbContext.Users.Any(user => user.UserId == id);
         }
     }
 }

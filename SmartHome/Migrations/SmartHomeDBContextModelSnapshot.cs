@@ -18,21 +18,21 @@ namespace SmartHome.Migrations
 
             modelBuilder.Entity("SmartHome.Models.Home", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("HomeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
                     b.Property<string>("Adress")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("Id");
+                    b.HasKey("HomeId");
 
                     b.ToTable("Homes");
                 });
 
             modelBuilder.Entity("SmartHome.Models.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
@@ -48,29 +48,59 @@ namespace SmartHome.Migrations
                     b.Property<string>("Username")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("SmartHome.Models.UserHome", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("HomeId")
                         .HasColumnType("bigint");
 
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsOwner")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.HasKey("UserId", "HomeId");
 
-                    b.HasKey("Id");
+                    b.HasIndex("HomeId");
 
                     b.ToTable("UserHomes");
+                });
+
+            modelBuilder.Entity("SmartHome.Models.UserHome", b =>
+                {
+                    b.HasOne("SmartHome.Models.Home", "Home")
+                        .WithMany("UserHomes")
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartHome.Models.User", "User")
+                        .WithMany("UserHomes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SmartHome.Models.Home", b =>
+                {
+                    b.Navigation("UserHomes");
+                });
+
+            modelBuilder.Entity("SmartHome.Models.User", b =>
+                {
+                    b.Navigation("UserHomes");
                 });
 #pragma warning restore 612, 618
         }

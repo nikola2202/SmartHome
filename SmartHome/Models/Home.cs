@@ -8,8 +8,9 @@ namespace SmartHome.Models
     public class Home
     {
 
-        public long Id { get; set; }
+        public long HomeId { get; set; }
         public string Adress { get; set; }
+        public IList<UserHome> UserHomes { get; set; }
 
     }
 }

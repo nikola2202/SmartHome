@@ -51,7 +51,7 @@ namespace SmartHome.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHome(long id, Home home)
         {
-            if (id != home.Id)
+            if (id != home.HomeId)
             {
                 return BadRequest();
             }
@@ -88,7 +88,7 @@ namespace SmartHome.Controllers
             await myDbContext.SaveChangesAsync();
 
             //return CreatedAtAction("GetHome", new { id = home.id }, home);
-            return CreatedAtAction(nameof(GetHome), new { id = home.Id }, home);
+            return CreatedAtAction(nameof(GetHome), new { id = home.HomeId }, home);
         }
 
 
@@ -109,7 +109,7 @@ namespace SmartHome.Controllers
         }
         private bool HomeExists(long id)
         {
-            return myDbContext.Homes.Any(e => e.Id == id);
+            return myDbContext.Homes.Any(e => e.HomeId == id);
         }
     }
 }

@@ -13,14 +13,17 @@ namespace SmartHome.DBContexts
         public SmartHomeDBContext(DbContextOptions<SmartHomeDBContext> options) : base(options)
         {
         }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Home> Homes { get; set; }
         public DbSet<UserHome> UserHomes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<User>().ToTable("Users");
-            //modelBuilder.Entity<Home>().ToTable("Homes");
+            modelBuilder.Entity<UserHome>().HasKey(uh => new { uh.UserId, uh.HomeId });
+
         }
+
+        
     }
 
 }
