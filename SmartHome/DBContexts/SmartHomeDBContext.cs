@@ -22,6 +22,7 @@ namespace SmartHome.DBContexts
             modelBuilder.Entity<UserHome>().HasKey(uh => new { uh.UserId, uh.HomeId });
 
         }
+        public DbSet<SmartHome.Models.Device> Device { get; set; }
 
         
     }

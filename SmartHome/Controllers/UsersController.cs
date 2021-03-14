@@ -88,6 +88,7 @@ namespace SmartHome.Controllers
             await myDbContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, user);
+           
         }
 
 
@@ -107,14 +108,6 @@ namespace SmartHome.Controllers
             return user;
         }
 
-        // POST: api/Users
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost("test")]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsersTest()
-        {
-            return await myDbContext.Users.ToListAsync();
-        }
         private bool UserExists(long id)
         {
             return myDbContext.Users.Any(user => user.UserId == id);

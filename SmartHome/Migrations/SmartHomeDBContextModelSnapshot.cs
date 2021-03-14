@@ -16,6 +16,25 @@ namespace SmartHome.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
+            modelBuilder.Entity("SmartHome.Models.Device", b =>
+                {
+                    b.Property<long>("DeviceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("DeviceName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<long>("HomeId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("DeviceId");
+
+                    b.HasIndex("HomeId");
+
+                    b.ToTable("Device");
+                });
+
             modelBuilder.Entity("SmartHome.Models.Home", b =>
                 {
                     b.Property<long>("HomeId")
@@ -74,6 +93,17 @@ namespace SmartHome.Migrations
                     b.ToTable("UserHomes");
                 });
 
+            modelBuilder.Entity("SmartHome.Models.Device", b =>
+                {
+                    b.HasOne("SmartHome.Models.Home", "Home")
+                        .WithMany("Devices")
+                        .HasForeignKey("HomeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Home");
+                });
+
             modelBuilder.Entity("SmartHome.Models.UserHome", b =>
                 {
                     b.HasOne("SmartHome.Models.Home", "Home")
@@ -95,6 +125,8 @@ namespace SmartHome.Migrations
 
             modelBuilder.Entity("SmartHome.Models.Home", b =>
                 {
+                    b.Navigation("Devices");
+
                     b.Navigation("UserHomes");
                 });
 
