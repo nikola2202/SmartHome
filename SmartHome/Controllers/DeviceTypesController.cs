@@ -12,48 +12,48 @@ namespace SmartHome.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DevicesController : ControllerBase
+    public class DeviceTypesController : ControllerBase
     {
         private readonly SmartHomeDBContext _context;
 
-        public DevicesController(SmartHomeDBContext context)
+        public DeviceTypesController(SmartHomeDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Devices
+        // GET: api/DeviceTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Device>>> GetDevice()
+        public async Task<ActionResult<IEnumerable<DeviceType>>> GetDeviceType()
         {
-            return await _context.Device.ToListAsync();
+            return await _context.DeviceType.ToListAsync();
         }
 
-        // GET: api/Devices/5
+        // GET: api/DeviceTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Device>> GetDevice(long id)
+        public async Task<ActionResult<DeviceType>> GetDeviceType(long id)
         {
-            var device = await _context.Device.FindAsync(id);
+            var deviceType = await _context.DeviceType.FindAsync(id);
 
-            if (device == null)
+            if (deviceType == null)
             {
                 return NotFound();
             }
 
-            return device;
+            return deviceType;
         }
 
-        // PUT: api/Devices/5
+        // PUT: api/DeviceTypes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDevice(long id, Device device)
+        public async Task<IActionResult> PutDeviceType(long id, DeviceType deviceType)
         {
-            if (id != device.DeviceId)
+            if (id != deviceType.DeviceTypeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(device).State = EntityState.Modified;
+            _context.Entry(deviceType).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace SmartHome.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DeviceExists(id))
+                if (!DeviceTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -74,38 +74,38 @@ namespace SmartHome.Controllers
             return NoContent();
         }
 
-        // POST: api/Devices
+        // POST: api/DeviceTypes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Device>> PostDevice(Device device)
+        public async Task<ActionResult<DeviceType>> PostDeviceType(DeviceType deviceType)
         {
-            _context.Device.Add(device);
+            _context.DeviceType.Add(deviceType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetDevice), new { id = device.DeviceId }, device);
-            
+            //return CreatedAtAction("GetDeviceType", new { id = deviceType.DeviceTypeId }, deviceType);
+            return CreatedAtAction(nameof(GetDeviceType), new { id = deviceType.DeviceTypeId }, deviceType);
         }
 
-        // DELETE: api/Devices/5
+        // DELETE: api/DeviceTypes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Device>> DeleteDevice(long id)
+        public async Task<ActionResult<DeviceType>> DeleteDeviceType(long id)
         {
-            var device = await _context.Device.FindAsync(id);
-            if (device == null)
+            var deviceType = await _context.DeviceType.FindAsync(id);
+            if (deviceType == null)
             {
                 return NotFound();
             }
 
-            _context.Device.Remove(device);
+            _context.DeviceType.Remove(deviceType);
             await _context.SaveChangesAsync();
 
-            return device;
+            return deviceType;
         }
 
-        private bool DeviceExists(long id)
+        private bool DeviceTypeExists(long id)
         {
-            return _context.Device.Any(e => e.DeviceId == id);
+            return _context.DeviceType.Any(e => e.DeviceTypeId == id);
         }
     }
 }

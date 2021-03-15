@@ -23,6 +23,8 @@ namespace SmartHome.DBContexts
 
         }
         public DbSet<SmartHome.Models.Device> Device { get; set; }
+        public DbSet<SmartHome.Models.DeviceType> DeviceType { get; set; }
+        public DbSet<SmartHome.Models.NumberParameter> NumberParameter { get; set; }
 
         
     }
