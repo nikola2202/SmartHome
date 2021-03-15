@@ -12,7 +12,10 @@ namespace SmartHome.Models
         public long MaxValue { get; set; }
         public long MinValue { get; set; }
         public long DefaultValue { get; set; }
-        public IList<NumberParameter> NumberParameters { get; set; }
+        public long DeviceId { get; set; }
+        public DeviceParameterCurrentValue DeviceParameterCurrentValue { get; set; }
+        //public long DeviceParameterCurrentValueId { get; set; }
+
 
 
     }

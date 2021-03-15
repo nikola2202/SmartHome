@@ -13,7 +13,8 @@ namespace SmartHome.Models
         public long HomeId { get; set; }
         public DeviceType DeviceType { get; set; }
         public long DeviceTypeId { get; set; }
+        public IList<NumberParameter> NumberParameters { get; set; }
 
-        
+
     }
 }
